@@ -1,5 +1,4 @@
 import random
-from typing import Tuple
 
 
 def difficulty_selections(difficulty: int):
