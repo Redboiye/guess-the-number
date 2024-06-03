@@ -49,7 +49,6 @@ class Match:
         print("You've have run out of attempts. The correct number was:", self.computer_number)
         return False
 
-
     @staticmethod
     def get_player_guess():
         while True:
@@ -61,35 +60,39 @@ class Match:
                 print("Please enter a valid number.")
 
 
-def choose_difficulty():
-    is_incorrect_difficulty = True
-    while is_incorrect_difficulty == True:
-        difficulty = input("1(Easy), 2(Normal) 3(Hard)")
-        if difficulty.isnumeric():
-            is_incorrect_difficulty = False
-            return int(difficulty), is_incorrect_difficulty
-        else:
-            print("Wrong difficulty. Choose again")
-
-
 class Game:
+    game_is_running = True
+
     def __init__(self):
         print("Welcome the the number guessing game!!")
         print("Time to guess some numbers!!!")
 
+    @staticmethod
+    def choose_difficulty():
+        is_incorrect_difficulty = True
+        while is_incorrect_difficulty == True:
+            difficulty = input("1(Easy), 2(Normal) 3(Hard)")
+            if difficulty.isnumeric():
+                is_incorrect_difficulty = False
+                return int(difficulty), is_incorrect_difficulty
+            else:
+                print("Wrong difficulty. Choose again")
+
     def start_game(self):
-        difficulty, is_incorrect_difficulty = choose_difficulty()
-        if not is_incorrect_difficulty:
-            match = Match(difficulty)
-            match.play()
-            if not self.play_again():
-                print("thank you for playing!")
+        while self.game_is_running:
+            difficulty, is_incorrect_difficulty = self.choose_difficulty()
+            if not is_incorrect_difficulty:
+                match = Match(difficulty)
+                match.play()
+                if not self.play_again():
+                    print("thank you for playing!")
 
     @staticmethod
     def play_again():
-        while True:
+        game_is_running = True
+        while game_is_running:
             choice = input("Do you want to play again? 'y' or 'n'.")
-            if choice is 'y':
-                return True
+            if choice == 'y':
+                return
             else:
                 exit("thanks for playing")
